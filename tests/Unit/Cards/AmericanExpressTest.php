@@ -12,7 +12,7 @@ class AmericanExpressTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function validNumbers(): Collection
+    public static function validNumbers(): Collection
     {
         return collect([
             '370218180742397',
@@ -122,7 +122,7 @@ class AmericanExpressTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidLength(): Collection
+    public static function numbersWithInvalidLength(): Collection
     {
         return collect([
             '3782822',
@@ -134,7 +134,7 @@ class AmericanExpressTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidCheckSum(): Collection
+    public static function numbersWithInvalidCheckSum(): Collection
     {
         return collect([
             '378282246310001',

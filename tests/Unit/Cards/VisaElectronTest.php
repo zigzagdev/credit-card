@@ -12,7 +12,7 @@ class VisaElectronTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function validNumbers(): Collection
+    public static function validNumbers(): Collection
     {
         return collect([
             '4917300800000000',
@@ -25,7 +25,7 @@ class VisaElectronTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidLength(): Collection
+    public static function numbersWithInvalidLength(): Collection
     {
         return collect([
             '49173008000',
@@ -37,7 +37,7 @@ class VisaElectronTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidCheckSum(): Collection
+    public static function numbersWithInvalidCheckSum(): Collection
     {
         return collect([
             '4917300800000002',

@@ -12,7 +12,7 @@ class EloTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function validNumbers(): Collection
+    public static function validNumbers(): Collection
     {
         return collect([
             '6363685305150464',
@@ -25,7 +25,7 @@ class EloTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidLength(): Collection
+    public static function numbersWithInvalidLength(): Collection
     {
         return collect([
             '6011111',
@@ -37,7 +37,7 @@ class EloTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidCheckSum(): Collection
+    public static function numbersWithInvalidCheckSum(): Collection
     {
         return collect([
             '6011111111111118',

@@ -40,21 +40,18 @@ abstract class BaseCardTests extends TestCase
         MirTest::class,
     ];
 
-    /** @test **/
-    public function it_implemented_correctly()
+    public function test_it_implemented_correctly()
     {
         $this->assertInstanceOf($this->instance, new $this->instance);
     }
 
-    /** @test **/
-    public function it_checks_if_card_number_is_set()
+    public function test_it_checks_if_card_number_is_set()
     {
         $this->expectException(CreditCardException::class);
         (new $this->instance)->isValidCardNumber();
     }
 
-    /** @test **/
-    public function it_checks_card_number()
+    public function test_it_checks_card_number()
     {
         $this->expectException(CreditCardException::class);
         (new $this->instance)
@@ -62,8 +59,7 @@ abstract class BaseCardTests extends TestCase
             ->isValidCardNumber();
     }
 
-    /** @test **/
-    public function it_can_be_called_directly()
+    public function test_it_can_be_called_directly()
     {
         $this->assertTrue(
             (new $this->instance)
@@ -72,8 +68,7 @@ abstract class BaseCardTests extends TestCase
         );
     }
 
-    /** @test **/
-    public function it_recognises_valid_card_numbers()
+    public function test_it_recognises_valid_card_numbers()
     {
         $this->validNumbers()->each(function ($number) {
             $this->assertTrue(
@@ -86,8 +81,7 @@ abstract class BaseCardTests extends TestCase
         });
     }
 
-    /** @test **/
-    public function it_recognises_invalid_card_numbers()
+    public function test_it_recognises_invalid_card_numbers()
     {
         $this->withoutMiddleware(TrimStrings::class);
         $this->withoutMiddleware(ConvertEmptyStringsToNull::class);
@@ -105,8 +99,7 @@ abstract class BaseCardTests extends TestCase
         });
     }
 
-    /** @test **/
-    public function it_checks_number_length()
+    public function test_it_checks_number_length()
     {
         $this->numbersWithInvalidLength()->each(function ($number) {
             $validator = Validator::make(
@@ -124,8 +117,7 @@ abstract class BaseCardTests extends TestCase
         });
     }
 
-    /** @test **/
-    public function it_checks_number_checksum()
+    public function test_it_checks_number_checksum()
     {
         $this->numbersWithInvalidCheckSum()->each(function ($number) {
             $validator = Validator::make(
@@ -147,13 +139,12 @@ abstract class BaseCardTests extends TestCase
         });
     }
 
-    /** @test **/
-    public function it_should_not_match_other_cards()
+    public function test_it_should_not_match_other_cards()
     {
         collect($this->available_cards)->each(function ($card) {
             if (class_basename($this->instance) != str_replace('Test', '', class_basename($card))) {
-                (new $card)->validNumbers()->each(function ($number) use ($card) {
-                    $card_instance = (new $card)->instance;
+                $card::validNumbers()->each(function ($number) use ($card) {
+                    $card_instance = get_class_vars($card)['instance'];
                     if ((new $card_instance)->type() === (new $this->instance)->type()) {
                         try {
                             (new $this->instance)->setCardNumber($number);
@@ -189,9 +180,9 @@ abstract class BaseCardTests extends TestCase
         });
     }
 
-    abstract public function validNumbers(): Collection;
+    abstract public static function validNumbers(): Collection;
 
-    abstract public function numbersWithInvalidLength(): Collection;
+    abstract public static function numbersWithInvalidLength(): Collection;
 
-    abstract public function numbersWithInvalidCheckSum(): Collection;
+    abstract public static function numbersWithInvalidCheckSum(): Collection;
 }

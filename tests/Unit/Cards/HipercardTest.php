@@ -12,7 +12,7 @@ class HipercardTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function validNumbers(): Collection
+    public static function validNumbers(): Collection
     {
         return collect([
             '6062826043427285',
@@ -24,7 +24,7 @@ class HipercardTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidLength(): Collection
+    public static function numbersWithInvalidLength(): Collection
     {
         return collect([
             '60628260434272857',
@@ -34,7 +34,7 @@ class HipercardTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidCheckSum(): Collection
+    public static function numbersWithInvalidCheckSum(): Collection
     {
         return collect([
             '5121647321685222',

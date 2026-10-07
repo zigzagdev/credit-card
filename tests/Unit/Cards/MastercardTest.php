@@ -12,7 +12,7 @@ class MastercardTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function validNumbers(): Collection
+    public static function validNumbers(): Collection
     {
         return collect([
             '5121647321685225',
@@ -64,7 +64,7 @@ class MastercardTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidLength(): Collection
+    public static function numbersWithInvalidLength(): Collection
     {
         return collect([
             '512164',
@@ -76,7 +76,7 @@ class MastercardTest extends BaseCardTests
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function numbersWithInvalidCheckSum(): Collection
+    public static function numbersWithInvalidCheckSum(): Collection
     {
         return collect([
             '5121647321685222',

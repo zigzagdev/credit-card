@@ -19,8 +19,7 @@ class CardExpirationTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test  */
-    public function it_checks_expiration_year()
+    public function test_it_checks_expiration_year()
     {
         // Invalid year
         $this->assertFalse($this->yearValidator(' ')->passes());
@@ -42,8 +41,7 @@ class CardExpirationTest extends TestCase
         $this->assertTrue($this->yearValidator(date('Y', strtotime('+1 year')))->passes());
     }
 
-    /** @test */
-    public function it_checks_expiration_month()
+    public function test_it_checks_expiration_month()
     {
         // Invalid month
         $this->assertFalse($this->monthValidator('')->passes());
@@ -71,8 +69,7 @@ class CardExpirationTest extends TestCase
         $this->assertTrue($this->monthValidator(date('m'))->passes());
     }
 
-    /** @test */
-    public function it_checks_expiration_date()
+    public function test_it_checks_expiration_date()
     {
         $this->assertFalse($this->dateValidator('-11', 'Y-m')->passes());
         $this->assertFalse($this->dateValidator(date('Y'), 'Y-m')->passes());
@@ -148,8 +145,7 @@ class CardExpirationTest extends TestCase
         $this->assertFalse($this->dateValidator('09/2026', 'm/Y')->passes());
     }
 
-    /** @test */
-    public function it_does_not_overflow_short_months_at_the_end_of_month()
+    public function test_it_does_not_overflow_short_months_at_the_end_of_month()
     {
         // Parsing without a day used to take today's day, so on the 29th-31st
         // a shorter month rolled over into the next one (e.g. Feb 31 -> Mar 3).
@@ -184,8 +180,7 @@ class CardExpirationTest extends TestCase
         $this->assertFalse(ExpirationDateValidator::validate('2026', '02'));
     }
 
-    /** @test */
-    public function it_is_valid_through_the_last_moment_of_the_expiration_month()
+    public function test_it_is_valid_through_the_last_moment_of_the_expiration_month()
     {
         Carbon::setTestNow('2026-12-31 23:59:59');
         $this->assertTrue(ExpirationDateValidator::validate('2026', '12'));
@@ -196,8 +191,7 @@ class CardExpirationTest extends TestCase
         $this->assertFalse($this->dateValidator('2026-12', 'Y-m')->passes());
     }
 
-    /** @test **/
-    public function it_can_be_called_directly()
+    public function test_it_can_be_called_directly()
     {
         $this->assertFalse(ExpirationDateValidator::validate('', date('m')));
         $this->assertFalse(ExpirationDateValidator::validate(date('y'), ''));
@@ -208,8 +202,7 @@ class CardExpirationTest extends TestCase
         $this->assertTrue(ExpirationDateValidator::validate(date('y'), date('m')));
     }
 
-    /** @test **/
-    public function it_validates_two_digits_year_format()
+    public function test_it_validates_two_digits_year_format()
     {
         $validator = Validator::make(
             ['expiration_year' => date('y')],

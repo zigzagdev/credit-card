@@ -13,8 +13,7 @@ use LVR\CreditCard\Tests\TestCase;
 
 class NewCardImplementationTest extends TestCase
 {
-    /** @test **/
-    public function new_card_should_have_defined_type_and_should_be_debit_or_credit()
+    public function test_new_card_should_have_defined_type_and_should_be_debit_or_credit()
     {
         // Not set
         $success = true;
@@ -93,8 +92,7 @@ class NewCardImplementationTest extends TestCase
         $this->assertTrue($success);
     }
 
-    /** @test **/
-    public function new_card_should_have_name_and_should_be_string()
+    public function test_new_card_should_have_name_and_should_be_string()
     {
         // Not set
         $success = true;
@@ -157,8 +155,7 @@ class NewCardImplementationTest extends TestCase
         $this->assertTrue($success);
     }
 
-    /** @test **/
-    public function new_card_should_have_pattern_and_should_be_string()
+    public function test_new_card_should_have_pattern_and_should_be_string()
     {
         // Not set
         $success = true;
@@ -221,8 +218,7 @@ class NewCardImplementationTest extends TestCase
         $this->assertTrue($success);
     }
 
-    /** @test **/
-    public function new_card_should_have_number_length_and_should_be_array()
+    public function test_new_card_should_have_number_length_and_should_be_array()
     {
         // Not set
         $success = true;
@@ -285,8 +281,7 @@ class NewCardImplementationTest extends TestCase
         $this->assertTrue($success);
     }
 
-    /** @test **/
-    public function new_card_should_have_cvc_length_and_should_be_array()
+    public function test_new_card_should_have_cvc_length_and_should_be_array()
     {
         // Not set
         $success = true;
@@ -349,8 +344,7 @@ class NewCardImplementationTest extends TestCase
         $this->assertTrue($success);
     }
 
-    /** @test **/
-    public function new_card_should_have_check_sum_and_should_be_bool()
+    public function test_new_card_should_have_check_sum_and_should_be_bool()
     {
         // Not set
         $success = true;

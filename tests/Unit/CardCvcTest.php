@@ -11,25 +11,24 @@ use LVR\CreditCard\Tests\Unit\Cards\VisaTest;
 
 class CardCvcTest extends TestCase
 {
-    /** @test **/
-    public function it_check_cvc_by_credit_card()
+    public function test_it_check_cvc_by_credit_card()
     {
         $this->assertTrue($this->validator('243')->fails());
         $this->assertTrue($this->validator('1234')->passes());
 
-        $this->assertTrue($this->validator('1234', new AmericanExpressTest)->passes());
-        $this->assertFalse($this->validator('243', new AmericanExpressTest)->passes()); // American Express supports only 4 digits
+        $this->assertTrue($this->validator('1234', AmericanExpressTest::class)->passes());
+        $this->assertFalse($this->validator('243', AmericanExpressTest::class)->passes()); // American Express supports only 4 digits
 
-        $this->assertTrue($this->validator('243', new VisaTest)->passes());
-        $this->assertTrue($this->validator('1234', new VisaTest)->fails()); // Visa supports only 3 digits
+        $this->assertTrue($this->validator('243', VisaTest::class)->passes());
+        $this->assertTrue($this->validator('1234', VisaTest::class)->fails()); // Visa supports only 3 digits
 
         // Fails with non-digit characters
-        $this->assertTrue($this->validator('1e3', new VisaTest)->fails());
-        $this->assertTrue($this->validator('-12', new VisaTest)->fails());
-        $this->assertTrue($this->validator(['123'], new VisaTest)->fails());
-        $this->assertTrue($this->validator("123\n", new AmericanExpressTest)->fails());
-        $this->assertTrue($this->validator('1e30', new AmericanExpressTest)->fails());
-        $this->assertTrue($this->validator(12, new VisaTest)->fails());
+        $this->assertTrue($this->validator('1e3', VisaTest::class)->fails());
+        $this->assertTrue($this->validator('-12', VisaTest::class)->fails());
+        $this->assertTrue($this->validator(['123'], VisaTest::class)->fails());
+        $this->assertTrue($this->validator("123\n", AmericanExpressTest::class)->fails());
+        $this->assertTrue($this->validator('1e30', AmericanExpressTest::class)->fails());
+        $this->assertTrue($this->validator(12, VisaTest::class)->fails());
 
         // Fails with bad card number
         $this->assertTrue(
@@ -40,8 +39,7 @@ class CardCvcTest extends TestCase
         );
     }
 
-    /** @test  */
-    public function it_checks_cvc_code_length()
+    public function test_it_checks_cvc_code_length()
     {
         // Valid
         $this->assertTrue(Card::isValidCvcLength('243'));
@@ -85,20 +83,16 @@ class CardCvcTest extends TestCase
 
     /**
      * @param  string|int  $cvc
-     * @param  null  $testCard
+     * @param  string  $testCard  Card test class providing valid numbers
      * @return mixed
      */
-    protected function validator($cvc, $testCard = null)
+    protected function validator($cvc, string $testCard = AmericanExpressTest::class)
     {
-        if (! $testCard) {
-            $testCard = new AmericanExpressTest();
-        }
-
         return Validator::make(
             [
                 'cvc' => $cvc,
             ],
-            ['cvc' => ['required', new CardCvc($testCard->validNumbers()->shuffle()->first())]]
+            ['cvc' => ['required', new CardCvc($testCard::validNumbers()->shuffle()->first())]]
         );
     }
 }
