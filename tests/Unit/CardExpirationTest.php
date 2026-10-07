@@ -111,7 +111,8 @@ class CardExpirationTest extends TestCase
         $this->assertFalse($this->dateValidator($d, 'Y-m')->passes());
 
         // Current year, past month
-        $timestamp = strtotime('-1 month');
+        // "-1 month" stays in the current month on e.g. 31 Oct (-> 1 Oct), so count from the first day.
+        $timestamp = strtotime('first day of last month');
         $d = date('Y', $timestamp).'-'.date('m', $timestamp);
         $this->assertFalse($this->dateValidator($d, 'Y-m')->passes());
 
